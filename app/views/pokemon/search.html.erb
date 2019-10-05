@@ -1,0 +1,24 @@
+<%= form_tag pokemon_search_path, method: :get do %>
+    <label>Pokemon:</label>
+    <input type=”text” name=Pokemon>
+    <button>search</button>
+<% end %>
+
+<% if @respuesta.code == 200%>
+    <h1><%= @respuesta['forms'][0]["name"]%></h1>
+    <% @respuesta['sprites'].each do |foto|%>
+        <%if foto[1] != nil%>
+            <%=image_tag(foto[1])%>
+        <%end%>
+    <%end%>
+    <h2>Habilidades</h2>
+    <% @respuesta['abilities'].each do |habilidad|%>
+        <div>
+        <%= habilidad['ability']["name"]%>, oculta? <%= habilidad["is_hidden"]%>
+        </div>
+    <%end%>
+
+
+<%else%>
+    <h1>MALA TU WEA </h1>
+<%end%>
